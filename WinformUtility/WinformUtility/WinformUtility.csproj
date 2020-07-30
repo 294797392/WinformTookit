@@ -42,15 +42,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionPoint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConnectionPoint.Designer.cs">
+      <DependentUpon>ConnectionPoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="DarwingCanvasGDI.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DarwingCanvasGDI.Designer.cs">
       <DependentUpon>DarwingCanvasGDI.cs</DependentUpon>
     </Compile>
-    <Compile Include="DrawingCanvasUtility.cs" />
+    <Compile Include="DarwingCanvasGDI1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DarwingCanvasGDI.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DrawingCanvasExtentions.cs" />
+    <Compile Include="DrawingLayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GeometryPolygon.cs" />
+    <Compile Include="GeometryEllipse.cs" />
+    <Compile Include="GeometryRectangle.cs" />
+    <Compile Include="GeometryLayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DrawingOptions.cs" />
+    <Compile Include="DrawingUtility.cs" />
+    <Compile Include="Geometry.cs" />
+    <Compile Include="IInputGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DrawingCanavs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DarwingCanvasGDI.resx">
+      <Generator>ResXFileCodeGeneratorTzTek</Generator>
+      <LastGenOutput>DarwingCanvasGDI1.Designer.cs</LastGenOutput>
+      <DependentUpon>DarwingCanvasGDI.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
