@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6B77AB49-02A9-4AAB-AB53-13A444944DB4}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>WinformUtility</RootNamespace>
-    <AssemblyName>WinformUtility</AssemblyName>
+    <RootNamespace>WinformToolkit</RootNamespace>
+    <AssemblyName>WinformToolkit</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -42,48 +42,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConnectionPoint.cs">
+    <Compile Include="DrawingCanavs\ConnectionPoint.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConnectionPoint.Designer.cs">
+    <Compile Include="DrawingCanavs\ConnectionPoint.Designer.cs">
       <DependentUpon>ConnectionPoint.cs</DependentUpon>
     </Compile>
-    <Compile Include="DarwingCanvasGDI.cs">
+    <Compile Include="DrawingCanavs\DarwingCanvasGDI.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DarwingCanvasGDI.Designer.cs">
+    <Compile Include="DrawingCanavs\DarwingCanvasGDI.Designer.cs">
       <DependentUpon>DarwingCanvasGDI.cs</DependentUpon>
     </Compile>
-    <Compile Include="DarwingCanvasGDI1.Designer.cs">
+    <Compile Include="DrawingCanavs\DrawingCanvasExtentions.cs" />
+    <Compile Include="DrawingCanavs\DrawingLayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DrawingCanavs\DrawingLayer.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DarwingCanvasGDI.resx</DependentUpon>
+      <DependentUpon>DrawingLayer.resx</DependentUpon>
     </Compile>
-    <Compile Include="DrawingCanvasExtentions.cs" />
-    <Compile Include="DrawingLayer.cs">
+    <Compile Include="DrawingCanavs\GeometryPolygon.cs" />
+    <Compile Include="DrawingCanavs\GeometryEllipse.cs" />
+    <Compile Include="DrawingCanavs\GeometryRectangle.cs" />
+    <Compile Include="DrawingCanavs\GeometryLayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="GeometryPolygon.cs" />
-    <Compile Include="GeometryEllipse.cs" />
-    <Compile Include="GeometryRectangle.cs" />
-    <Compile Include="GeometryLayer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DrawingOptions.cs" />
-    <Compile Include="DrawingUtility.cs" />
-    <Compile Include="Geometry.cs" />
-    <Compile Include="IInputGeometry.cs" />
+    <Compile Include="DrawingCanavs\DrawingOptions.cs" />
+    <Compile Include="DrawingCanavs\DrawingUtility.cs" />
+    <Compile Include="DrawingCanavs\Geometry.cs" />
+    <Compile Include="DrawingCanavs\IInputGeometry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DrawingCanavs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DarwingCanvasGDI.resx">
+    <EmbeddedResource Include="DrawingCanavs\DrawingLayer.resx">
       <Generator>ResXFileCodeGeneratorTzTek</Generator>
-      <LastGenOutput>DarwingCanvasGDI1.Designer.cs</LastGenOutput>
-      <DependentUpon>DarwingCanvasGDI.cs</DependentUpon>
+      <DependentUpon>DrawingLayer.cs</DependentUpon>
+      <LastGenOutput>DrawingLayer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

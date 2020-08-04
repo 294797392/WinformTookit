@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformClient", "WinformClient\WinformClient.csproj", "{69DD73C7-DA35-40DE-ADA1-A2DE501A99FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformUtility", "WinformUtility\WinformUtility.csproj", "{6B77AB49-02A9-4AAB-AB53-13A444944DB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinformToolkit", "WinformToolkit\WinformToolkit.csproj", "{6B77AB49-02A9-4AAB-AB53-13A444944DB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
