@@ -21,9 +21,9 @@ namespace WinformUtility
         private ObservableCollection<GeometryLayer> layers;
 
         /// <summary>
-        /// 默认图层
+        /// 当前选中的图层
         /// </summary>
-        private GeometryLayer defaultLayer;
+        private GeometryLayer selectedLayer;
 
         /// <summary>
         /// 画图图层
@@ -92,16 +92,14 @@ namespace WinformUtility
                 PolygonBorderWidth = 3
             };
 
-            // 初始化图层
+            // 所有图层
             this.layers = new ObservableCollection<GeometryLayer>();
-            this.defaultLayer = this.AddGeometryLayer();
+
+            // 初始化图层
+            this.selectedLayer = this.AddGeometryLayer();
 
             // 用来画图的Panel
-            this.drawingLayer = new DrawingLayer();
-            this.drawingLayer.Visible = false;
-            this.drawingLayer.Options = this.Options;
-            this.Controls.Add(this.drawingLayer);
-            this.Controls.SetChildIndex(this.drawingLayer, 0);
+            this.InitializeDrawingLayer();
         }
 
         #endregion
@@ -111,34 +109,29 @@ namespace WinformUtility
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
+            e.Graphics.Clear(System.Drawing.Color.Transparent);
         }
 
         #endregion
 
-        #region PanelDrawing事件
+        #region 事件处理器
 
-        private void PanelDrawing_Paint(object sender, PaintEventArgs e)
+        /// <summary>
+        /// 画图完成事件
+        /// </summary>
+        /// <param name="geometry">画上去的图形</param>
+        private void DrawingLayer_DrawCompleted(Geometry geometry)
         {
-        }
+            this.drawingLayer.Visible = false;
+            this.drawingLayer.DrawingType = DrawingCanavsGeometries.None;
 
-        private void PanelDrawing_MouseUp(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void PanelDrawing_MouseMove(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void PanelDrawing_MouseDown(object sender, MouseEventArgs e)
-        {
-            Console.WriteLine("MouseDown");
-
-            if (!this.EnableDrawing)
+            if (this.selectedLayer == null)
             {
-                return;
+                this.selectedLayer = this.layers.FirstOrDefault();
             }
 
-
+            this.selectedLayer.AddGeometry(geometry);
         }
 
         #endregion
@@ -161,6 +154,18 @@ namespace WinformUtility
             layer.Dock = DockStyle.Fill;
 
             return layer;
+        }
+
+        private void InitializeDrawingLayer()
+        {
+            this.drawingLayer = new DrawingLayer();
+            this.drawingLayer.BackColor = System.Drawing.Color.Transparent;
+            // 默认状态下隐藏，EnableDrawing设置成True的时候再显示
+            this.drawingLayer.Visible = false;
+            this.drawingLayer.Options = this.Options;
+            this.drawingLayer.DrawCompleted += this.DrawingLayer_DrawCompleted;
+            this.Controls.Add(this.drawingLayer);
+            this.Controls.SetChildIndex(this.drawingLayer, 0);
         }
 
         #endregion

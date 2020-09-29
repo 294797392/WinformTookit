@@ -12,6 +12,11 @@ namespace WinformUtility
     public enum DrawingCanavsGeometries
     {
         /// <summary>
+        /// 没有正在画的图形
+        /// </summary>
+        None,
+
+        /// <summary>
         /// 矩形
         /// </summary>
         Rectangle,

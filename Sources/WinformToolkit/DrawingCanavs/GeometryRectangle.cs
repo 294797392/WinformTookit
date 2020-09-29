@@ -28,5 +28,16 @@ namespace WinformUtility
         {
             return new RectangleF(this.OffsetX, this.OffsetY, this.Width, this.Height);
         }
+
+        public static GeometryRectangle FromRectangle(Rectangle rectangle)
+        {
+            return new GeometryRectangle()
+            {
+                Height = rectangle.Height,
+                Width = rectangle.Width,
+                OffsetX = rectangle.X,
+                OffsetY = rectangle.Y
+            };
+        }
     }
 }

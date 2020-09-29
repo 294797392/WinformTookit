@@ -41,5 +41,11 @@ namespace WinformClient
             DrawingCanvasGDI.DrawingType = DrawingCanavsGeometries.Ellipse;
             DrawingCanvasGDI.EnableDrawing = true;
         }
+
+        private void ButtonDrawPolygon_Click(object sender, EventArgs e)
+        {
+            DrawingCanvasGDI.DrawingType = DrawingCanavsGeometries.Polygon;
+            DrawingCanvasGDI.EnableDrawing = true;
+        }
     }
 }

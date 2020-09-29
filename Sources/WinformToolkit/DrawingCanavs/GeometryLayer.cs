@@ -59,6 +59,18 @@ namespace WinformUtility
             g.DrawRectangle(this.drawingOptions.PolygonBorderPen, rectangle.OffsetX, rectangle.OffsetY, rectangle.Width, rectangle.Height);
         }
 
+        private void DrawPolygon(Graphics g, GeometryPolygon polygon)
+        {
+            g.FillPolygon(this.drawingOptions.PolygonBackgroundBrush, polygon.Points);
+            g.DrawPolygon(this.drawingOptions.PolygonBorderPen, polygon.Points);
+        }
+
+        private void DrawEllipse(Graphics g, GeometryEllipse ellipse)
+        {
+            g.FillEllipse(this.drawingOptions.PolygonBackgroundBrush, ellipse.OffsetX, ellipse.OffsetY, ellipse.Width, ellipse.Height);
+            g.DrawEllipse(this.drawingOptions.PolygonBorderPen, ellipse.OffsetX, ellipse.OffsetY, ellipse.Width, ellipse.Height);
+        }
+
         #endregion
 
         #endregion
@@ -81,6 +93,8 @@ namespace WinformUtility
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            e.Graphics.Clear(System.Drawing.Color.MistyRose);
+
             if (this.drawingOptions == null)
             {
                 this.drawingOptions = this.Options as DrawingOptionsGDI;
@@ -98,8 +112,27 @@ namespace WinformUtility
                 switch (geometry.Type)
                 {
                     case DrawingCanavsGeometries.Rectangle:
-                        this.DrawRectangle(g, geometry as GeometryRectangle);
-                        break;
+                        {
+                            this.DrawRectangle(g, geometry as GeometryRectangle);
+                            break;
+                        }
+
+                    case DrawingCanavsGeometries.Polygon:
+                        {
+                            this.DrawPolygon(g, geometry as GeometryPolygon);
+                            break;
+                        }
+
+                    case DrawingCanavsGeometries.Ellipse:
+                        {
+                            this.DrawEllipse(g, geometry as GeometryEllipse);
+                            break;
+                        }
+
+                    default:
+                        {
+                            break;
+                        }
                 }
             }
         }

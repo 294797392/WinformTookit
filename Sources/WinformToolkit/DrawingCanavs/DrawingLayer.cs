@@ -13,6 +13,25 @@ namespace WinformUtility
     /// </summary>
     internal class DrawingLayer : GeometryLayer
     {
+        #region 常亮
+
+        /// <summary>
+        /// 最大放大倍数
+        /// </summary>
+        private const float MAXIMUM_SCALING = 100F;
+
+        /// <summary>
+        /// 最大缩小倍数
+        /// </summary>
+        private const float MINIMUM_SCALING = 0.5F;
+
+        /// <summary>
+        /// 每次缩放的比例
+        /// </summary>
+        private const float ScaleFactor = 0.5F;
+
+        #endregion
+
         #region 公开事件
 
         /// <summary>
@@ -48,6 +67,21 @@ namespace WinformUtility
         /// 多边形的点
         /// </summary>
         private List<Point> polygonPoints;
+
+        /// <summary>
+        /// 每个元素的偏移量
+        /// </summary>
+        private float geometryOffsetX = 0F;
+
+        /// <summary>
+        /// 每个元素的偏移量
+        /// </summary>
+        private float geometryOffsetY = 0F;
+
+        /// <summary>
+        /// 当前缩放倍数
+        /// </summary>
+        private float currentZoomFactor = 1;
 
         #endregion
 
@@ -87,6 +121,60 @@ namespace WinformUtility
         #endregion
 
         #region 重写事件
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+
+            //if (e.Delta > 0)
+            //{
+            //    // 放大
+            //    if (this.currentZoomFactor >= MAXIMUM_SCALING)
+            //    {
+            //        return;
+            //    }
+
+            //    this.currentZoomFactor += ScaleFactor;
+            //}
+            //else
+            //{
+            //    // 缩小
+            //    if (this.currentZoomFactor <= MINIMUM_SCALING)
+            //    {
+            //        return;
+            //    }
+
+            //    this.currentZoomFactor -= ScaleFactor;
+            //}
+
+            //// 鼠标坐标作为缩放中心点
+            //Point mousePosition = e.Location;
+
+            //// 获取鼠标所在图片的X轴的比例
+            //float scaleX = (mousePosition.X / this.Width);
+
+            //// 获取鼠标所在图片的Y轴的比例
+            //float scaleY = (mousePosition.Y / this.Height);
+
+            //// 缩小后的图片的大小
+            //float sizeX = this.Width * this.currentZoomFactor;
+
+            //// 计算缩小后鼠标所在图片的X轴的位置
+            //float offsetX = sizeX * scaleX;
+
+            //// 缩小后的图片的大小
+            //float sizeY = this.Height * this.currentZoomFactor;
+
+            //// 计算缩小后鼠标所在图片的Y轴的位置
+            //float offsetY = sizeY * scaleY;
+
+            //this.geometryOffsetX = -(offsetX - mousePosition.X);
+
+            //this.geometryOffsetY = -(offsetY - mousePosition.Y);
+
+            //// 重绘
+            //this.Invalidate();
+        }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -169,9 +257,18 @@ namespace WinformUtility
             switch (this.DrawingType)
             {
                 case DrawingCanavsGeometries.Ellipse:
+                    {
+                        this.isDrawing = false;
+                        Rectangle r = this.startMousePosition.MakeRectangle(this.currentMousePosition);
+                        this.NotifyDrawCompleted(GeometryEllipse.FromRectangle(r));
+                        break;
+                    }
+
                 case DrawingCanavsGeometries.Rectangle:
                     {
                         this.isDrawing = false;
+                        Rectangle r = this.startMousePosition.MakeRectangle(this.currentMousePosition);
+                        this.NotifyDrawCompleted(GeometryRectangle.FromRectangle(r));
                         break;
                     }
 
@@ -233,17 +330,5 @@ namespace WinformUtility
         }
 
         #endregion
-
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // DrawingLayer
-            // 
-            this.Name = "DrawingLayer";
-            this.Size = new System.Drawing.Size(1401, 887);
-            this.ResumeLayout(false);
-
-        }
     }
 }
